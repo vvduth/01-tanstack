@@ -6,27 +6,14 @@ import ErrorBlock from '../UI/ErrorBlock.jsx';
 import EventItem from './EventItem.jsx';
 import { fetchEvents } from '../../utils/http.js';
 
+
 export default function NewEventsSection() {
 
-  const { data, isPending, isError } = useQuery({
+  const { data, isPending, isError, error } = useQuery({
     queryFn: fetchEvents,
     queryKey: ['events']
   })
 
-  useEffect(() => {
-    
-
-    fetchEvents()
-      .then((events) => {
-        setData(events);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
 
   let content;
 
