@@ -22,5 +22,9 @@
   {
     "path": "mclaren.jpg",
     "caption": "A sleek McLaren sports car."
+  },
+  {
+    "path": "food-truck.jpg",
+    "caption": "A food truck serving delicious meals."
   }
 ]
