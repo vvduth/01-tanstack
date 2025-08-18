@@ -1,3 +1,6 @@
+import {QueryClient} from "@tanstack/react-query"
+export const queryClient = new QueryClient();
+
 export async function fetchEvents({signal, searchTerm}) {
       //setIsLoading(true);
       let url = 'http://localhost:3000/events'; 
@@ -43,7 +46,7 @@ export async function createNewEvent(eventData) {
 }
 
 export async function fetchSelectableImages({signal}) {
-  const response = await fetch('http://localhost:3000/images', {
+  const response = await fetch('http://localhost:3000/events/images', {
     signal
   });
 
