@@ -2,16 +2,30 @@ import { Link, useNavigate } from 'react-router-dom';
 import {useMutation} from "@tanstack/react-query"
 import Modal from '../UI/Modal.jsx';
 import EventForm from './EventForm.jsx';
+import { createNewEvent } from '../../utils/http.js';
 
+import ErrorBlock from "../UI/ErrorBlock.jsx";
 export default function NewEvent() {
   const navigate = useNavigate();
 
-  function handleSubmit(formData) {}
+  const {mutate, isPending, isError, error} =   useMutation({
+    mutationFn: createNewEvent , 
+  })
+
+  function handleSubmit(formData) {
+    mutate({event: formData})
+  }
 
   return (
     <Modal onClose={() => navigate('../')}>
       <EventForm onSubmit={handleSubmit}>
-        <>
+        {isPending && <p>Creating event...</p>}
+        {isError && <ErrorBlock
+          title = "Failed to create event"
+          message = {error?.info?.message || 'Something went wrong'}
+        />}
+        {!isPending && (
+          <>
           <Link to="../" className="button-text">
             Cancel
           </Link>
@@ -19,6 +33,7 @@ export default function NewEvent() {
             Create
           </button>
         </>
+        )}
       </EventForm>
     </Modal>
   );
